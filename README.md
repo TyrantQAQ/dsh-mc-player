@@ -8,7 +8,7 @@
 
 1. 装好 [DSH](https://deepseek.com) 桌面版（或 dsh 命令行）。
 2. clone 本仓库，`npm install`（会装 mineflayer / mineflayer-pathfinder）。
-3. `npm run setup:26.2`：把随包的 26.2 数据装进 minecraft-data，并补 4 处客户端版本登记。**每次 `npm install` 之后都要重跑一次**，否则 26.2 连不上。
+3. 26.2 数据：`npm install` 会自动跑 `prepare`（即 `setup:26.2`）；插件启动时还会再自检一次，缺了就自己补。**一般不用手动跑**；只有自动补装失败时，才手动 `npm run setup:26.2`。
 4. 在 DSH 的插件管理里把这个目录装成本地 bundle（`plugin_manager` 的 `install_bundle`，或设置页的「安装本地插件」）。
 5. 重启 DSH；设置 → **MC 玩家**，填地址/端口/版本，点「连接」。
 6. 之后在游戏聊天框里说话就能指挥它；模型那侧有 27 个 `mc_*` 工具。

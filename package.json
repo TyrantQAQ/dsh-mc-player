@@ -38,7 +38,8 @@
     "maptest": "node scripts/maptest.mjs",
     "machinetest": "node scripts/machine-test.mjs",
     "marktest": "node scripts/marktest.mjs",
-    "chattest": "node scripts/chattest.mjs"
+    "chattest": "node scripts/chattest.mjs",
+    "prepare": "node vendor/26.2/setup.cjs ."
   },
   "dependencies": {
     "mineflayer": "^4.39.0",
