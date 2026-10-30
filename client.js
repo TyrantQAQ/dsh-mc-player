@@ -103,17 +103,23 @@ window.__ModuleLoader__.load({
         })
       }
 
-      const save = async () => {
+      const saveWith = async (next, note) => {
         setBusy(true)
         try {
-          const r = await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings) })
+          const r = await fetch(API + '/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) })
           const d = await r.json()
           if (!r.ok) throw new Error(d.error || r.status)
           setSettings(d.settings)
-          setMsg({ kind: 'ok', text: '已保存（连接相关的改动用「连接」按钮生效）' })
+          setMsg({ kind: 'ok', text: note })
         } catch (e) {
           setMsg({ kind: 'err', text: '保存失败：' + (e?.message || e) })
         } finally { setBusy(false) }
+      }
+      const save = () => saveWith(settings, '已保存（连接相关的改动用「连接」按钮生效）')
+      const pickSession = (id) => {
+        const next = { ...settings, boundSessionId: id || null }
+        setSettings(next)
+        saveWith(next, id ? '会话绑定已保存' : '已改回自动（当前会话）')
       }
 
       const doPost = async (path, body) => {
@@ -164,7 +170,7 @@ window.__ModuleLoader__.load({
             h(Field, { label: '用哪个 DSH 会话玩游戏', hint: '游戏聊天、闲置思考会把消息转给这个会话；留空则用第一次调用工具时的会话。' },
               h('select', {
                 value: settings.boundSessionId ?? '',
-                onChange: (e) => setPath(['boundSessionId'], e.target.value || null),
+                onChange: (e) => pickSession(e.target.value),
               },
                 h('option', { value: '' }, '自动（当前会话）'),
                 sess.map((s) => h('option', { key: s.id, value: s.id },
@@ -173,7 +179,7 @@ window.__ModuleLoader__.load({
           ),
           h('div', { className: 'mcp-row' },
             h('button', { onClick: load }, '刷新会话'),
-            h('span', { className: 'mcp-note' }, '共 ' + sessions.length + ' 个会话'),
+            h('span', { className: 'mcp-note' }, '共 ' + sessions.length + ' 个会话 · 选择后自动保存'),
           ),
         ),
 
