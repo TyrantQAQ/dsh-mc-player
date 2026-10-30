@@ -1,0 +1,82 @@
+{
+  "name": "dsh-mc-player",
+  "version": "0.1.0",
+  "private": true,
+  "description": "让 AI 像真人一样在 Minecraft Java 版里活着：小脑管保命，大脑管决定，每个动作都要回读证据。",
+  "license": "MIT",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./client": "./client.js"
+  },
+  "files": [
+    "lib",
+    "scripts",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "vendor/26.2",
+    "client.js"
+  ],
+  "scripts": {
+    "selftest": "node scripts/selftest.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "livetest": "node scripts/livetest.mjs",
+    "placelab": "node scripts/placelab.mjs",
+    "setup:26.2": "node vendor/26.2/setup.cjs .",
+    "check:26.2": "node vendor/26.2/setup.cjs . --check",
+    "goaltest": "node scripts/autopilottest.mjs",
+    "stationstest": "node scripts/stations-test.mjs",
+    "farmtest": "node scripts/farmtest.mjs",
+    "brewtest": "node scripts/brewtest.mjs",
+    "fighttest": "node scripts/fighttest.mjs",
+    "maptest": "node scripts/maptest.mjs",
+    "machinetest": "node scripts/machine-test.mjs",
+    "marktest": "node scripts/marktest.mjs",
+    "chattest": "node scripts/chattest.mjs"
+  },
+  "dependencies": {
+    "mineflayer": "^4.39.0",
+    "mineflayer-pathfinder": "^2.4.5"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "slots"
+      ],
+      "external": [
+        "react"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "author": "Arcadia Recluse",
+  "keywords": [
+    "minecraft",
+    "mineflayer",
+    "dsh",
+    "agent",
+    "bot",
+    "26.2"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/REPLACE_USER/dsh-mc-player.git"
+  },
+  "homepage": "https://github.com/REPLACE_USER/dsh-mc-player#readme",
+  "bugs": {
+    "url": "https://github.com/REPLACE_USER/dsh-mc-player/issues"
+  }
+}

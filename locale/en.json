@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MC Player",
+    "description": "Lets the AI live in a Minecraft Java world as a real player: a 20Hz reflex layer keeps it alive, one tool call per decision, and every action is verified by reading the world back."
+  }
+}

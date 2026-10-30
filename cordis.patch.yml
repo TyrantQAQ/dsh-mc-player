@@ -1,0 +1,57 @@
+# ============================================================================
+# dsh-mc-player —— bundle patch
+#
+# 装上之后只要 profile 的 dsh.profile.bundles 里有 "dsh-mc-player" 就生效。
+# 这里的默认值只是"能跑起来"，真正连哪台服由 mc_connect 决定（会存到
+# $DSH_HOME/mc-player/config.json，下次重启还在）。
+# ============================================================================
+
+- insert:
+    - id: mc-player
+      name: dsh-mc-player
+      config:
+        autoConnect: false
+        connection:
+          host: 127.0.0.1
+          port: 25565
+          username: xiaojingyu
+          auth: offline
+          version: ''
+          reconnect: true
+          maxReconnect: 6
+        reflex:
+          enabled: true
+          creeperRange: 4
+          lowHealth: 6
+          lowOxygen: 8
+          surroundCount: 3
+        mistakeChance: 0.08
+        rhythm:
+          enabled: true
+          tickMs: 3000
+          idleLookAfterMs: 12000
+          lookChance: 0.35
+          sleepAfterDays: 2
+          bedSearchRadius: 24
+        idle:
+          enabled: true
+          afterSeconds: 10
+          cooldownSeconds: 120
+        chat:
+          enabled: true
+          finishCurrentFirst: true
+          followDistance: 3
+        machine:
+          intervalMs: 800
+          maxMinutes: 30
+        mapmemory:
+          enabled: true
+          sampleMs: 2000
+          minStep: 2.5
+          maxPoints: 800
+        autopilot:
+          enabled: true
+          intervalMs: 2500
+          minHealth: 8
+          pauseAtNight: false
+          maxAttempts: 3
