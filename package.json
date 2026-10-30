@@ -73,10 +73,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/REPLACE_USER/dsh-mc-player.git"
+    "url": "https://github.com/TyrantQAQ/dsh-mc-player.git"
   },
-  "homepage": "https://github.com/REPLACE_USER/dsh-mc-player#readme",
+  "homepage": "https://github.com/TyrantQAQ/dsh-mc-player#readme",
   "bugs": {
-    "url": "https://github.com/REPLACE_USER/dsh-mc-player/issues"
+    "url": "https://github.com/TyrantQAQ/dsh-mc-player/issues"
   }
 }
