@@ -143,7 +143,11 @@ check('后退要打断当前动作', d1?.interrupt === true)
 const farCreeper = { ...creeper, distance: 6 }
 check('苦力怕 6 格 → 不动', decide(baseWorld({ creeper: farCreeper }), DEFAULT_REFLEX, new Map(), 1000) === null)
 
-check('血 4 有吃的 → 吃', decide(baseWorld({ health: 4 }), DEFAULT_REFLEX, new Map(), 1000)?.id === 'low_health')
+check('血 4 有吃的 → 吃', decide(baseWorld({ health: 4, food: 15 }), DEFAULT_REFLEX, new Map(), 1000)?.id === 'low_health')
+check('血 4 但饱食度满 → 不硬吃（吃了也回不了血）', decide(baseWorld({ health: 4, food: 20 }), DEFAULT_REFLEX, new Map(), 1000) === null)
+check('站在岩浆块上 → 先挪开', decide(baseWorld({ underBlock: 'magma_block' }), DEFAULT_REFLEX, new Map(), 1000)?.id === 'hotfloor')
+check('站在普通石头上 → 不管', decide(baseWorld({ underBlock: 'stone' }), DEFAULT_REFLEX, new Map(), 1000) === null)
+check('站在火里（脚下是火方块）→ 先挪开', decide(baseWorld({ feetBlock: 'fire', underBlock: 'grass_block' }), DEFAULT_REFLEX, new Map(), 1000)?.id === 'hotfloor')
 check('血 4 没吃的 → 不动（交给大脑）', decide(baseWorld({ health: 4, hasFood: false }), DEFAULT_REFLEX, new Map(), 1000) === null)
 check('血 4 但冷却没到 → 不重复喊', decide(baseWorld({ health: 4 }), DEFAULT_REFLEX, new Map([['low_health', 900]]), 1000) === null)
 
