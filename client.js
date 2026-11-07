@@ -122,13 +122,13 @@ window.__ModuleLoader__.load({
         saveWith(next, id ? '会话绑定已保存' : '已改回自动（当前会话）')
       }
 
-      const doPost = async (path, body) => {
+      const doPost = async (path, body, okText = '操作成功', failText = '操作失败') => {
         setBusy(true)
         try {
           const r = await fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) })
           const d = await r.json()
           if (d?.error) throw new Error(d.error)
-          setMsg({ kind: d?.ok ? 'ok' : 'err', text: d?.ok ? '连接成功' : ('没连上：' + (d?.error || '未知原因')) })
+          setMsg({ kind: d?.ok ? 'ok' : 'err', text: d?.ok ? okText : (failText + '：' + (d?.error || '未知原因')) })
           await load()
         } catch (e) {
           setMsg({ kind: 'err', text: '操作失败：' + (e?.message || e) })
@@ -156,8 +156,8 @@ window.__ModuleLoader__.load({
                 h('option', { value: 'microsoft' }, '微软（microsoft）'))),
           ),
           h('div', { className: 'mcp-row' },
-            h('button', { className: 'primary', disabled: busy, onClick: () => doPost('/connect', settings.connection) }, '连接'),
-            h('button', { disabled: busy, onClick: () => doPost('/disconnect') }, '断开'),
+            h('button', { className: 'primary', disabled: busy, onClick: () => doPost('/connect', settings.connection, '连接成功', '没连上') }, '连接'),
+            h('button', { disabled: busy, onClick: () => doPost('/disconnect', {}, '已断开', '断开失败') }, '断开'),
             h('span', { className: 'mcp-pill' },
               h('span', { className: 'mcp-dot' + (status?.online ? ' on' : '') }),
               status?.online ? ('在线：' + (status?.connection?.host || '') + ':' + (status?.connection?.port || '')) : '离线'),
